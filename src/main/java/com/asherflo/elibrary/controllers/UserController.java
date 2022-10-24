@@ -18,25 +18,7 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
-    @PostMapping("/register")
-    public ResponseEntity<?> createUser(@RequestBody AccountCreationRequest accountCreationRequest) throws LibraryException {
-         try{
-        UserDto userDto = userService.createUserAccount(accountCreationRequest);
-            ApiResponse apiResponse = ApiResponse.builder()
-                    .status("success")
-                    .message("user successfully created")
-                    .data(userDto)
-                    .result(1)
-                    .build();
-            return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
-        } catch (LibraryException e){
-             ApiResponse apiResponse = ApiResponse.builder()
-                     .status("fail")
-                     .message(e.getMessage())
-                     .build();
-             return  new ResponseEntity<>(apiResponse, HttpStatus.valueOf(e.getMessage()));
-         }
-    }
+
     @GetMapping("/userId")
     public ResponseEntity<?> getUser(@RequestBody FindUserRequest request) throws LibraryException{
         UserDto userDto = userService.findByUser(request);
